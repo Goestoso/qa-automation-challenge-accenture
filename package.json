@@ -9,7 +9,8 @@
     "test": "npm run build && npm run test:api",
     "test:api": "mocha --require ts-node/register --require tsconfig-paths/register \"tests/apis/**/*.spec.ts\"",
     "test:ui": "mocha --require ts-node/register --require tsconfig-paths/register \"tests/ui/**/*.spec.ts\"",
-    "test:all": "npm run build && npm run test:api && npm run test:ui"
+    "test:all": "npm run build && npm run test:api && npm run test:ui",
+    "test:bdd": "cucumber-js --require-module ts-node/register --require-module tsconfig-paths/register --require tests/bdd/steps/**/*.ts --format progress"
   },
   "engines": {
     "node": ">=18"
@@ -20,6 +21,7 @@
     "selenium-webdriver": "^4.27.0"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0",
     "@types/chai": "^4.3.20",
     "@types/mocha": "^10.0.10",
     "@types/node": "^22.10.2",

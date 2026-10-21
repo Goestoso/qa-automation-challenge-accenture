@@ -65,6 +65,17 @@ O teste `tests/ui/web-tables.spec.ts` cobre o cenário de Web Tables:
 4. Edição do salário do registro.
 5. Exclusão do registro criado.
 
+O bônus de Web Tables com Cucumber está em `features/web-tables.feature` e
+`tests/bdd/steps/web-tables.steps.ts`. O cenário cria 12 registros com dados
+dinâmicos, seleciona `Show 50` para evitar que os registros fiquem espalhados
+por páginas diferentes e exclui os registros ao final.
+
+Execute o cenário BDD com:
+
+```text
+npm run test:bdd
+```
+
 O teste `tests/ui/progress-bar.spec.ts` cobre o cenário de Progress Bar:
 
 1. Abertura de Widgets > Progress Bar.
@@ -72,6 +83,12 @@ O teste `tests/ui/progress-bar.spec.ts` cobre o cenário de Progress Bar:
 3. Validação do valor interrompido.
 4. Retomada até 100%.
 5. Reset da barra para 0%.
+
+O teste `tests/ui/sortable.spec.ts` cobre o cenário de Sortable:
+
+1. Abertura de Interactions > Sortable.
+2. Uso de drag and drop para alterar a posição dos elementos.
+3. Ordenação final de `One` até `Six`.
 
 Execute somente o cenário de UI com:
 

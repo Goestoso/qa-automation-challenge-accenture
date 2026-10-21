@@ -13,6 +13,9 @@ export class HomePage extends BasePage {
   private readonly widgetsCard = By.xpath(
     "//div[contains(@class,'card-body')]/h5[normalize-space()='Widgets']",
   );
+  private readonly interactionsCard = By.xpath(
+    "//div[contains(@class,'card-body')]/h5[normalize-space()='Interactions']",
+  );
 
   async open(): Promise<void> {
     await this.driver.get(config.uiBaseUrl);
@@ -32,5 +35,9 @@ export class HomePage extends BasePage {
 
   async openWidgets(): Promise<void> {
     await this.click(this.widgetsCard);
+  }
+
+  async openInteractions(): Promise<void> {
+    await this.click(this.interactionsCard);
   }
 }

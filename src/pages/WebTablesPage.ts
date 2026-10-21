@@ -1,4 +1,5 @@
 import { By, until, WebElement } from 'selenium-webdriver';
+import { Select } from 'selenium-webdriver/lib/select';
 import { BasePage } from '@src/pages/BasePage';
 
 export interface WebTableRecord {
@@ -20,15 +21,32 @@ export class WebTablesPage extends BasePage {
   private readonly salary = By.id('salary');
   private readonly department = By.id('department');
   private readonly submit = By.id('submit');
+  private readonly rowsPerPage = By.css('select.form-control');
 
   async openFromMenu(): Promise<void> {
     await this.click(this.webTablesMenu);
+  }
+
+  async showMaximumRecordsPerPage(): Promise<void> {
+    const selectElement = await this.find(this.rowsPerPage);
+    const pageSize = new Select(selectElement);
+    await pageSize.selectByValue('50');
+    await this.driver.wait(async () => {
+      return (await selectElement.getAttribute('value')) === '50';
+    }, 5_000);
   }
 
   async addRecord(record: WebTableRecord): Promise<void> {
     await this.click(this.addRecordButton);
     await this.fillRecord(record);
     await this.click(this.submit);
+    await this.driver.wait(
+      async () => {
+        const row = await this.driver.findElement(this.rowByEmail(record.email));
+        return (await row.getText()).includes(record.firstName);
+      },
+      10_000,
+    );
   }
 
   async editRecordByEmail(email: string, changes: Partial<WebTableRecord>): Promise<void> {
@@ -49,8 +67,24 @@ export class WebTablesPage extends BasePage {
   }
 
   async deleteRecordByEmail(email: string): Promise<void> {
-    const row = await this.findRowByEmail(email);
-    await row.findElement(By.xpath(".//span[contains(@id,'delete-record')]")).click();
+    await this.showMaximumRecordsPerPage();
+    const rows = await this.driver.findElements(this.rowByEmail(email));
+    if (rows.length === 0) {
+      return;
+    }
+
+    const row = rows[0];
+    const deleteButton = await row.findElement(
+      By.xpath(".//span[contains(@id,'delete-record')]"),
+    );
+    await this.driver.executeScript(
+      'arguments[0].scrollIntoView({ block: "center" });',
+      deleteButton,
+    );
+    await this.driver.executeScript(
+      'arguments[0].click();',
+      deleteButton,
+    );
 
     await this.driver.wait(async () => {
       const rows = await this.driver.findElements(this.rowByEmail(email));
@@ -61,6 +95,11 @@ export class WebTablesPage extends BasePage {
   async rowContains(email: string, value: string): Promise<boolean> {
     const row = await this.findRowByEmail(email);
     return (await row.getText()).includes(value);
+  }
+
+  async rowExists(email: string): Promise<boolean> {
+    const rows = await this.driver.findElements(this.rowByEmail(email));
+    return rows.length > 0;
   }
 
   private async fillRecord(record: WebTableRecord): Promise<void> {
