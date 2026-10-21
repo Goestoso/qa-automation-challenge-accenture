@@ -65,6 +65,14 @@ O teste `tests/ui/web-tables.spec.ts` cobre o cenário de Web Tables:
 4. Edição do salário do registro.
 5. Exclusão do registro criado.
 
+O teste `tests/ui/progress-bar.spec.ts` cobre o cenário de Progress Bar:
+
+1. Abertura de Widgets > Progress Bar.
+2. Início da barra e interrupção até 25%.
+3. Validação do valor interrompido.
+4. Retomada até 100%.
+5. Reset da barra para 0%.
+
 Execute somente o cenário de UI com:
 
 ```text
