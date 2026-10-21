@@ -2,7 +2,7 @@ import { HttpClient } from '@src/services/httpClient';
 
 export interface CreateUserRequest { userName: string; password: string }
 export interface UserResponse {
-  userID: string;
+  userId: string;
   username: string;
   books: Array<{ isbn: string; title: string }>;
 }
@@ -20,10 +20,8 @@ export class DemoQaAccountService {
     );
   }
 
-  isAuthorized(token: string) {
-    return this.http.post<boolean>('/Account/v1/Authorized', undefined, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  isAuthorized(payload: CreateUserRequest) {
+    return this.http.post<boolean>('/Account/v1/Authorized', payload);
   }
 
   getUser(userId: string, token: string) {
