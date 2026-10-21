@@ -1,7 +1,7 @@
 import { By, WebDriver, WebElement, until } from 'selenium-webdriver';
 
 export abstract class BasePage {
-  protected constructor(protected readonly driver: WebDriver) {}
+  constructor(protected readonly driver: WebDriver) {}
 
   protected async find(locator: By): Promise<WebElement> {
     return this.driver.wait(until.elementLocated(locator), 10_000);

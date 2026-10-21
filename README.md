@@ -38,3 +38,33 @@ O desafio não exige um relatório formal em HTML, JUnit ou Allure. Por isso, o 
 ```
 
 Relatórios formais podem ser adicionados posteriormente caso sejam necessários para integração contínua ou apresentação dos resultados.
+
+## Fluxo de UI implementado
+
+O teste `tests/ui/practice-form.spec.ts` cobre o primeiro cenário frontend do desafio:
+
+1. Acesso à página inicial.
+2. Abertura do menu Forms e do Practice Form.
+3. Preenchimento dos dados do estudante.
+4. Seleção de gênero, assunto, hobby, estado e cidade.
+5. Upload de `resources/files/upload.txt`.
+6. Submit e validação do modal de confirmação.
+
+O teste `tests/ui/browser-windows.spec.ts` cobre o cenário de Browser Windows:
+
+1. Abertura de Alerts, Frame & Windows > Browser Windows.
+2. Abertura de uma nova janela.
+3. Troca para a nova janela e validação de `This is a sample page`.
+4. Fechamento da nova janela e retorno à janela original.
+
+Execute somente o cenário de UI com:
+
+```text
+npm run test:ui
+```
+
+Para executar API e UI juntas:
+
+```text
+npm run test:all
+```
