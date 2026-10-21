@@ -7,6 +7,9 @@ export class HomePage extends BasePage {
   private readonly alertsFrameWindowsCard = By.xpath(
     "//div[contains(@class,'card-body')]/h5[normalize-space()='Alerts, Frame & Windows']",
   );
+  private readonly elementsCard = By.xpath(
+    "//div[contains(@class,'card-body')]/h5[normalize-space()='Elements']",
+  );
 
   async open(): Promise<void> {
     await this.driver.get(config.uiBaseUrl);
@@ -18,5 +21,9 @@ export class HomePage extends BasePage {
 
   async openAlertsFrameWindows(): Promise<void> {
     await this.click(this.alertsFrameWindowsCard);
+  }
+
+  async openElements(): Promise<void> {
+    await this.click(this.elementsCard);
   }
 }

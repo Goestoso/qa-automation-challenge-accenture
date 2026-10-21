@@ -57,6 +57,14 @@ O teste `tests/ui/browser-windows.spec.ts` cobre o cenário de Browser Windows:
 3. Troca para a nova janela e validação de `This is a sample page`.
 4. Fechamento da nova janela e retorno à janela original.
 
+O teste `tests/ui/web-tables.spec.ts` cobre o cenário de Web Tables:
+
+1. Abertura de Elements > Web Tables.
+2. Criação de um registro com email único.
+3. Localização da linha pelo email.
+4. Edição do salário do registro.
+5. Exclusão do registro criado.
+
 Execute somente o cenário de UI com:
 
 ```text
